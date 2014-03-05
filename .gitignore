@@ -7,3 +7,4 @@ Thumbs.db
 coverage/*
 Gemfile.lock
 .rvmrc
+pkg/*
