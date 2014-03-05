@@ -11,12 +11,12 @@ describe "RedCloth::Formatters::Plain" do
     describe "Simple paragraphs" do
       it "implicit" do
         input = "This is a paragraph.\n\nThis is another paragraph"
-        output = "This is a paragraph.\nThis is another paragraph"
+        output = "This is a paragraph.\n\nThis is another paragraph"
         RedCloth.new(input).to_plain.should == output
       end
       it "explicit" do
         input = "p. This is one paragraph.\n\np. This is another."
-        output = "This is one paragraph.\nThis is another."
+        output = "This is one paragraph.\n\nThis is another."
         RedCloth.new(input).to_plain.should == output
       end
     end
@@ -98,7 +98,7 @@ describe "RedCloth::Formatters::Plain" do
   describe "Page Layout" do
     it "Headings" do
       input = "h1. This is a Heading 1\n\nThis might be an introductory paragraph on the general topic.\n\nh2. Heading 2 gets more specific\n\nNow we're getting into the details."
-      output = "This is a Heading 1\nThis might be an introductory paragraph on the general topic.\nHeading 2 gets more specific\nNow we're getting into the details."
+      output = "This is a Heading 1\n\nThis might be an introductory paragraph on the general topic.\n\nHeading 2 gets more specific\n\nNow we're getting into the details."
       RedCloth.new(input).to_plain.should == output
     end
     describe "Block quotations" do
@@ -106,15 +106,15 @@ describe "RedCloth::Formatters::Plain" do
         input = "Even Mr. Sedaris, a noted luddite, has finally succumbed to doing his writing on a computer.  The Internet, however, remains an idiotic trifle:\n\n"
         input += "bq. I've never seen the Internet. I don't have email. I just enjoy lying on the couch and reading a magazine. When people say, \"You should visit my Web page,\" I'm always perplexed by it. Why? What do you do there?\n\n"
         input += "Haven't we all pondered that at one time or another?"
-        output = "Even Mr. Sedaris, a noted luddite, has finally succumbed to doing his writing on a computer.  The Internet, however, remains an idiotic trifle:\n"
-        output += "I've never seen the Internet. I don't have email. I just enjoy lying on the couch and reading a magazine. When people say, \"You should visit my Web page,\" I'm always perplexed by it. Why? What do you do there?\n"
+        output = "Even Mr. Sedaris, a noted luddite, has finally succumbed to doing his writing on a computer.  The Internet, however, remains an idiotic trifle:\n\n"
+        output += "I've never seen the Internet. I don't have email. I just enjoy lying on the couch and reading a magazine. When people say, \"You should visit my Web page,\" I'm always perplexed by it. Why? What do you do there?\n\n"
         output += "Haven't we all pondered that at one time or another?"
         RedCloth.new(input).to_plain.should == output
       end
       it "citation URL immediately following the period" do
         input = "A standard Lorem Ipsum passage has been used since the 1500s:\n\n"
         input += "bq.:http://www.lipsum.com/ Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-        output = "A standard Lorem Ipsum passage has been used since the 1500s:\n"
+        output = "A standard Lorem Ipsum passage has been used since the 1500s:\n\n"
         output += "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
         RedCloth.new(input).to_plain.should == output
       end
@@ -122,8 +122,8 @@ describe "RedCloth::Formatters::Plain" do
         input = "bq.. This is one paragraph.\n\n"
         input += "Another paragraph, also part of the quote.\n\n"
         input += "p. A normal paragraph ends the quote."
-        output = "This is one paragraph.\n"
-        output += "Another paragraph, also part of the quote.\n"
+        output = "This is one paragraph.\n\n"
+        output += "Another paragraph, also part of the quote.\n\n"
         output += "A normal paragraph ends the quote."
         RedCloth.new(input).to_plain.should == output
       end
@@ -137,7 +137,7 @@ describe "RedCloth::Formatters::Plain" do
       input += "*** You don't wear out the keys on your keyboard as fast\n"
       input += "*** You won't wear out your fingers as fast\n"
       input += "* You can write it much quicker"
-      output = "Textile has several advantages over HTML:\n"
+      output = "Textile has several advantages over HTML:\n\n"
       output += "- It's easier on the eyes\n"
       output += "- You don't have to write all those HTML tags\n"
       output += "  - By not writing the tags yourself, you're less likely to make coding mistakes\n"
@@ -156,7 +156,7 @@ describe "RedCloth::Formatters::Plain" do
       input += "## Put jelly on another slice\n"
       input += "## Put the two slices together\n"
       input += "# Enjoy"
-      output = "How to make a PB&J:\n"
+      output = "How to make a PB&J:\n\n"
       output += "- Gather bread, peanut butter, and jelly\n"
       output += "- Slice the bread if necessary\n"
       output += "- Assemble the sandwich\n"
@@ -173,7 +173,7 @@ describe "RedCloth::Formatters::Plain" do
       input += "** Walking burns calories\n"
       input += "** Time outside means lower stress\n"
       input += "# It's good for the environment"
-      output = "Three reasons to walk to work:\n"
+      output = "Three reasons to walk to work:\n\n"
       output += "- It saves fuel\n"
       output += "- It's good for your health\n"
       output += "  - Walking burns calories\n"
@@ -189,7 +189,7 @@ describe "RedCloth::Formatters::Plain" do
       input += "Cold drink that goes great with cookies. =:"
       output = "coffee:\n  Hot and black\n"
       output += "tea:\n  Also hot, but a little less black\n"
-      output += "milk:\n  Nourishing beverage for baby cows.\n"
+      output += "milk:\n  Nourishing beverage for baby cows.\n\n"
       output += "Cold drink that goes great with cookies."
       RedCloth.new(input).to_plain.should == output
     end
@@ -242,8 +242,8 @@ describe "RedCloth::Formatters::Plain" do
       input = "Search results for **Textile**:\n\n"
       input += "h4. [\"**Textile** (markup language) - Wikipedia\":http://en.wikipedia.org/wiki/Textile_(markup_language)]\n\n"
       input += "**Textile** is a lightweight markup language originally developed by Dean Allen and billed as a \"humane Web text generator\".  **Textile** converts its marked-up text ..."
-      output = "Search results for Textile:\n"
-      output += "Textile (markup language) - Wikipedia <http://en.wikipedia.org/wiki/Textile_(markup_language)>\n"
+      output = "Search results for Textile:\n\n"
+      output += "Textile (markup language) - Wikipedia <http://en.wikipedia.org/wiki/Textile_(markup_language)>\n\n"
       output += "Textile is a lightweight markup language originally developed by Dean Allen and billed as a \"humane Web text generator\".  Textile converts its marked-up text ..."
       RedCloth.new(input).to_plain.should == output
     end
@@ -350,9 +350,9 @@ describe "RedCloth::Formatters::Plain" do
       input += "p>. align right\n\n"
       input += "p=. centered\n\n"
       input += "p<>. justified justified justified justified justified justified justified justified justified"
-      output = "align left\n"
-      output += "align right\n"
-      output += "centered\n"
+      output = "align left\n\n"
+      output += "align right\n\n"
+      output += "centered\n\n"
       output += "justified justified justified justified justified justified justified justified justified"
       RedCloth.new(input).to_plain.should == output
     end
@@ -360,8 +360,8 @@ describe "RedCloth::Formatters::Plain" do
       input = "p(. Left pad 1em.\n\n"
       input += "p)). Right pad 2em.\n\n"
       input += "p(). Pad both left and right sides 1em."
-      output = "Left pad 1em.\n"
-      output += "Right pad 2em.\n"
+      output = "Left pad 1em.\n\n"
+      output += "Right pad 2em.\n\n"
       output += "Pad both left and right sides 1em."
       RedCloth.new(input).to_plain.should == output
     end
@@ -420,10 +420,9 @@ describe "RedCloth::Formatters::Plain" do
       input += "</form>\n"
       input += "</div>"
       output = "\n\n"
-      output += "Your cart\n"
+      output += "Your cart\n\n"
       output += "- Item one\n"
       output += "- Item two"
-      output += "\n\n"
       RedCloth.new(input).to_plain.should == output
     end
     describe "No Textile" do
@@ -471,8 +470,8 @@ describe "RedCloth::Formatters::Plain" do
         input = "pre.. All monospaced\n\n"
         input += "Even the blank lines\n\n"
         input += "p. But now a paragraph"
-        output = "All monospaced\n"
-        output += "Even the blank lines\n"
+        output = "All monospaced\n\n"
+        output += "Even the blank lines\n\n"
         output += "But now a paragraph"
         RedCloth.new(input).to_plain.should == output
       end

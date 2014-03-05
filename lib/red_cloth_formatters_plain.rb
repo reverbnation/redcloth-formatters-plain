@@ -218,7 +218,8 @@ module RedCloth
         end
       end
       def after_transform(text)
-        text.chomp!
+        # text.chomp!
+        text.rstrip!
       end
       def before_transform(text)
       end
