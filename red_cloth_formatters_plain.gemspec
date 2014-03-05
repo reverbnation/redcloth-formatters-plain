@@ -4,7 +4,7 @@ $:.push File.expand_path("../lib", __FILE__)
 
 Gem::Specification.new do |s|
   s.name        = "rn_red_cloth_formatters_plain"
-  s.version     = "2.2.0"
+  s.version     = "2.3.0"
   s.authors     = ["Joseph Halter", "Jeff Zellman", "Andrew Watts"]
   s.email       = ["joseph@openhood.com", "jzellman@gmail.com", "ahwatts@gmail.com"]
   s.homepage    = "https://github.com/reverbnation/redcloth-formatters-plain"
